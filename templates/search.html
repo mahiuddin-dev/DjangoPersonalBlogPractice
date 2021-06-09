@@ -1,0 +1,373 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block titile %}
+  Search
+{% endblock titile %}
+  
+
+{% block body %}
+
+	<!-- header -->
+	<header class="header-personal">
+        <div class="container-xl header-top">
+			<div class="row align-items-center">
+
+				<div class="col-4 d-none d-md-block d-lg-block">
+					<!-- social icons -->
+					<ul class="social-icons list-unstyled list-inline mb-0">
+						<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+						
+					</ul>
+				</div>
+
+				<div class="col-md-4 col-sm-12 col-xs-12 text-center">
+				<!-- site logo -->
+					
+					<a href="/" class="d-block text-logo"> {{ author.name }} <span class="dot">.</span></a>
+					<span class="slogan d-block">{{ author.authorExp }}</span>
+				</div>
+
+				<div class="col-md-4 col-sm-12 col-xs-12">
+					<!-- header buttons -->
+					<div class="header-buttons float-md-end mt-4 mt-md-0">
+						<button class="search icon-button">
+							<i class="icon-magnifier"></i>
+						</button>
+						<button class="burger-menu icon-button ms-2 float-end float-md-none">
+							<span class="burger-icon"></span>
+						</button>
+					</div>
+				</div>
+
+			</div>
+        </div>
+
+		<nav class="navbar navbar-expand-lg">
+			<div class="container-xl">
+				
+				<div class="collapse navbar-collapse justify-content-center centered-nav">
+					<!-- menus -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item  active">
+                          <a class="nav-link" href="/">Home</a>
+                          
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="">About Me</a>
+                        </li>
+                       
+                        
+                        <li class="nav-item">
+                          <a class="nav-link" href="">Contact</a>
+                        </li>
+                      </ul>
+				</div>
+
+			</div>
+		</nav>
+	</header>
+
+    <section class="page-header">
+        <div class="container-xl">
+            <div class="text-center">
+                <h1 class="mt-0 mb-2">Search Results</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Search</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+<!-- section main content -->
+<section class="main-content mt-5">
+<div class="container-xl">
+
+  <div class="row gy-4">
+
+    <div class="col-lg-8">
+
+                <div class="row gy-4">
+                    
+                  
+                  
+                  {% if queryset %}
+
+                  {% for post in results %}
+                    
+                  <div class="col-sm-6">
+                    <div class="post post-grid rounded bordered">
+                      <div class="thumb top-rounded">
+                        <a href="" class="category-badge position-absolute"
+                          >Lifestyle</a
+                        >
+                        <span class="post-format">
+                          <i class="icon-picture"></i>
+                        </span>
+                        <a href="{% url 'home:blog_details' slug=post.slug %}">
+                          <div class="inner">
+                            <img src="{{ post.thumPic.url }}" alt="post-title" />
+                          </div>
+                        </a>
+                      </div>
+                      <div class="details">
+                        <ul class="meta list-inline mb-0">
+                          <li class="list-inline-item">
+                            <a href="#"
+                              ><img
+                                src="{% static 'images/other/author-sm.png' %}"
+                                class="author"
+                                alt="author"
+                              />
+                              {{ post.author }}
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            {{ post.posttime |timesince }} ago
+                          </li>
+                        </ul>
+                        <h5 class="post-title mb-3 mt-3">
+                          <a href="{% url 'home:blog_details' slug=post.slug %}">
+                            {{ post.postTitle }}
+                          </a>
+                        </h5>
+                        <p class="excerpt mb-0">
+                          {{ post.description|slice:"0:150" | safe }}....
+                        </p>
+                      </div>
+                      <div class="post-bottom clearfix d-flex align-items-center">
+                        <div class="social-share me-auto">
+                          <button class="toggle-button icon-share"></button>
+                          <ul class="icons list-unstyled list-inline mb-0">
+                            <li class="list-inline-item">
+                              <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#"><i class="fab fa-pinterest"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#"><i class="far fa-envelope"></i></a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="more-button float-end">
+                          <a href="{% url 'home:blog_details' slug=post.slug %}"
+                            ><span class="icon-options"></span
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    {% endfor %}
+                  
+                    {% else %}
+
+                    <h1 align="center">No Results found!</h1>
+                    
+                    
+                    {% endif %}
+
+                </div>
+
+      <nav>
+        <ul class="pagination justify-content-center">
+          
+          {% load l10n %}           
+          {% for post in page_obj.paginator.page_range %}
+          {% if page_obj.number == post  %}
+          <li class="page-item active" aria-current="page">
+            
+            <a href="?page={{ post }}">
+
+              <span class="page-link">{{ post | localize }}</span>
+            </a>
+          
+          </li>
+          
+          {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ post }}">{{ post }}</a>
+          </li>
+          
+          {% endif %}
+          {% endfor %}
+        
+
+        
+        
+        </ul>
+      
+      
+      </nav>
+
+    </div>
+    <div class="col-lg-4">
+
+      <!-- sidebar -->
+      <div class="sidebar">
+        <!-- widget about -->
+        <div class="widget rounded">
+          <div class="widget-about data-bg-image text-center" data-bg-image="{% static 'blog/images/map-bg.png' %}">
+            <a href="" class="d-block text-logo"> {{ author.name }} <span class="dot">.</span></a>
+            <p class="mb-4">{{ author.shortDesc }}</p>
+            <ul class="social-icons list-unstyled list-inline mb-0">
+              <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+             
+            </ul>
+          </div>
+        </div>
+
+        
+
+          <!-- widget tranding posts -->
+          <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Tranding Posts Last 7 days</h3>
+              <img
+                src="{% static 'images/wave.svg' %}"
+                class="wave"
+                alt="wave"
+              />
+            </div>
+            <div class="widget-content">
+              <!-- post -->
+
+              {% for tranding_post in tranding %}
+              <div class="post post-list-sm circle">
+                <div class="thumb circle">
+                  <span class="number"> {{ forloop.counter }} </span>
+                  <a href="{% url 'home:blog_details' slug=tranding_post.slug %}">
+                    <div class="inner">
+                      <img
+                        src="{{ tranding_post.thumPic.url }}"
+                        alt="{{ tranding_post.postTitle }}"
+                      />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0">
+                    <a href="{% url 'home:blog_details' slug=tranding_post.slug %}">
+                      {{ tranding_post.postTitle }}</a
+                    >
+                  </h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ tranding_post.posttime }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- widget newsletter -->
+          <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Newsletter</h3>
+              <img
+                src="{% static 'images/wave.svg' %}"
+                class="wave"
+                alt="wave"
+              />
+            </div>
+            <div class="widget-content">
+              <span class="newsletter-headline text-center mb-3"
+                >Join 70,000 subscribers!</span
+              >
+              <form>
+                <div class="mb-2">
+                  <input
+                    class="form-control w-100 text-center"
+                    placeholder="Email address…"
+                    type="email"
+                  />
+                </div>
+                <button class="btn btn-default btn-full" type="submit">
+                  Sign Up
+                </button>
+              </form>
+              <span class="newsletter-privacy text-center mt-3"
+                >By signing up, you agree to our
+                <a href="#">Privacy Policy</a></span
+              >
+            </div>
+          </div>
+
+          <!-- widget popular posts -->
+          <div class="widget rounded">
+            <div class="widget-header text-center">
+              <h3 class="widget-title">Popular Posts All Time</h3>
+              <img
+                src="{% static 'images/wave.svg' %}"
+                class="wave"
+                alt="wave"
+              />
+            </div>
+            <div class="widget-content">
+              <!-- post -->
+
+              {% for pop_post in popularPost %}
+              <div class="post post-list-sm circle">
+                <div class="thumb circle">
+                  <span class="number"> {{ forloop.counter }} </span>
+                  <a href="{% url 'home:blog_details' slug=pop_post.slug %}">
+                    <div class="inner">
+                      <img
+                        src="{{ pop_post.thumPic.url }}"
+                        alt="{{ pop_post.postTitle }}"
+                      />
+                    </div>
+                  </a>
+                </div>
+                <div class="details clearfix">
+                  <h6 class="post-title my-0">
+                    <a href="{% url 'home:blog_details' slug=pop_post.slug %}">
+                      {{ pop_post.postTitle }}</a
+                    >
+                  </h6>
+                  <ul class="meta list-inline mt-1 mb-0">
+                    <li class="list-inline-item">{{ pop_post.posttime }}</li>
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+{% endblock body %}
