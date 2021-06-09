@@ -4,7 +4,6 @@ from django.views.generic.detail import DetailView
 from .forms import CommentForm
 from django.db.models import Q
 from django.contrib import messages
-
 from django.shortcuts import redirect
 from .models import Blogpost
 
@@ -16,9 +15,13 @@ class HomeView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        slug = Blogpost.objects.values('slug')[0]['slug']
-        context['slug'] = slug
-        return context
+        try:
+            slug = Blogpost.objects.values('slug')[0]['slug']
+            context['slug'] = slug
+            return context
+        except Exception:
+            context['slug'] = ''
+            return context
 
 
 class BlogView(DetailView):
