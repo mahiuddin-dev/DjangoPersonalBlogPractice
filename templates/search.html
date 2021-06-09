@@ -257,7 +257,7 @@
                     <div class="inner">
                       <img
                         src="{{ tranding_post.thumPic.url }}"
-                        alt="{{ tranding_post.postTitle }}"
+                        alt="{{ tranding_post.postTitle|slice:'0:20' }}"
                       />
                     </div>
                   </a>
@@ -265,7 +265,7 @@
                 <div class="details clearfix">
                   <h6 class="post-title my-0">
                     <a href="{% url 'home:blog_details' slug=tranding_post.slug %}">
-                      {{ tranding_post.postTitle }}</a
+                      {{ tranding_post.postTitle|slice:'0:20' }}...</a
                     >
                   </h6>
                   <ul class="meta list-inline mt-1 mb-0">
@@ -331,7 +331,7 @@
                     <div class="inner">
                       <img
                         src="{{ pop_post.thumPic.url }}"
-                        alt="{{ pop_post.postTitle }}"
+                        alt="{{ pop_post.postTitle|slice:'0:20' }}"
                       />
                     </div>
                   </a>
@@ -339,7 +339,7 @@
                 <div class="details clearfix">
                   <h6 class="post-title my-0">
                     <a href="{% url 'home:blog_details' slug=pop_post.slug %}">
-                      {{ pop_post.postTitle }}</a
+                      {{ pop_post.postTitle|slice:'0:20' }}...</a
                     >
                   </h6>
                   <ul class="meta list-inline mt-1 mb-0">
